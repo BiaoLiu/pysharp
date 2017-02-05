@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+{% block head %}
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>PySharp</title>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+        <!-- bootstrap css -->
+        <link href="{{ REMOTE_STATIC_URL }}bootstrap3.1.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="{{ REMOTE_STATIC_URL }}bootstrap3.1.1/css/extend.css" rel="stylesheet">
+        <!-- jquery ui css-->
+        <link href="{{ REMOTE_STATIC_URL }}jquery_ui_1_8_20/default/jquery-ui-1.8.20.custom.css" rel="stylesheet" type="text/css"/>
+        <!-- 平台cs	 -->
+        <link href="{{ REMOTE_STATIC_URL }}bk/bk.css" rel="stylesheet">
+
+        <!-- bootstrap3.1.1 提示信息(show_msg 和 alert_msg)方法 所需的css -->
+        <link href="{{ STATIC_URL }}css/bootstrap3.1.1_extend.css" rel="stylesheet">
+        <!-- my css-->
+        <link href="{{ STATIC_URL }}css/extend.css?v={{ STATIC_VERSION }}" rel="stylesheet">
+
+        <!-- jquery js  -->
+        <script src="{{ REMOTE_STATIC_URL }}jquery/jquery-1.7.2.min.js" type="text/javascript"></script>
+        <script src="{{ REMOTE_STATIC_URL }}jquery/jquery.json-2.3.min.js"></script>
+        <!-- bootstrap js  -->
+        <script src="{{ REMOTE_STATIC_URL }}bootstrap3.1.1/js/bootstrap.min.js" type="text/javascript"></script>
+
+        <!-- bootstrap3.1.1 提示信息(show_msg 和 alert_msg)方法  -->
+        <script src="{{ STATIC_URL }}js/bootstrap3.1.1_extend.js"></script>
+
+        <!-- 这个是全局配置，如果需要在js中使用app_code和site_url,则这个javascript片段一定要保留 -->
+        <script type="text/javascript">
+            var site_url = "{{SITE_URL}}";			// app的url前缀,在ajax调用的时候，应该加上该前缀
+            var remote_static_url = "{{REMOTE_STATIC_URL}}";   //远程资源链接，403页面需要，不要删除
+        </script>
+        <!--配置js-->
+        <script src="{{ STATIC_URL }}js/settings.js?v={{ STATIC_VERSION }}"></script>
+        <!--统计js-->
+        <script src="{{ REMOTE_STATIC_URL }}analysis.js"></script>
+
+    </head>
+{% endblock %}
+
+<body>
+{% block content %}
+{% endblock %}
+</body>
+</html>
