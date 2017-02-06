@@ -1,8 +1,11 @@
 # coding=utf-8
 import re
 import json
-from django.conf import  settings
-from settings import SITE_URL
+from django.conf import settings
+# from settings import SITE_URL
+from django.views.debug import technical_500_response
+import sys
+
 from .log import logger
 from .utils import html_escape, url_escape, html_escape_name, check_script
 
@@ -10,10 +13,10 @@ from .utils import html_escape, url_escape, html_escape_name, check_script
 class CheckXssMiddleware(object):
     def process_view(self, request, view, args, kwargs):
         try:
-            #判断豁免权
+            # 判断豁免权
             if getattr(view, 'escape_exempt', False):
                 return None
-            
+
             escapeType = None
             if getattr(view, 'escape_script', False):
                 escapeType = "script"
@@ -26,7 +29,7 @@ class CheckXssMiddleware(object):
         except Exception as e:
             logger.error(u"CheckXssMiddleware 转换失败！%s" % e)
         return None
-    
+
     def __escape_data(self, path, query_dict, escape_type=None):
         """
         GET/POST参数转义
@@ -47,7 +50,7 @@ class CheckXssMiddleware(object):
                         use_type = self.__filter_param(path, _get_key)
                     else:
                         use_type = escape_type
-                        
+
                     if use_type == 'url':
                         new_data[_get_key] = url_escape(_get_value)
                     elif use_type == 'script':
@@ -68,7 +71,7 @@ class CheckXssMiddleware(object):
         # update 数据
         data_copy.update(new_data)
         return data_copy
-    
+
     def __filter_param(self, path, param):
         """
         特殊path处理
@@ -103,17 +106,21 @@ class CheckXssMiddleware(object):
             logger.error(u"CheckXssMiddleware 特殊path处理失败！%s" % e)
             result = 'html'
         return result
-    
+
     def __filter_path_list(self):
         """
         特殊path注册
         """
         use_name = {}
-        use_url = {
-                   '%saccounts/login' % SITE_URL: ['next'],
-                   '%saccounts/login_page' % SITE_URL: ['req_url'],
-                   '%saccounts/login_success' % SITE_URL: ['req_url'],
-                   '%s' % SITE_URL: ['url'],
-                  }
+        use_url = {}
         use_script = {}
         return (use_name, use_url, use_script)
+
+
+'''
+管理员可查看错误详情
+'''
+class UserBasedExceptionMiddleware:
+    def process_exception(self, request, exception):
+        if request.is_superuser or request.META.get('REMOTE_ADDR') in settings.INTERNAL_IPS:
+            return technical_500_response(request, *sys.exc_info())

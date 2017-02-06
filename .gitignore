@@ -29,5 +29,4 @@ OLD-out-of-date
 workdir/
 node_modules/
 bower_components/
-settings.py
 logs/
