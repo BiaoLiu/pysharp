@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
-import os
+import os, sys
 from datetime import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -18,6 +18,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR, PROJECT_MODULE_NAME = os.path.split(PROJECT_ROOT)
 TO_ABS_PATH = lambda filename: os.path.join(BASE_DIR, filename)
+
+# 加入到搜索目录
+sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
+sys.path.insert(0, os.path.join(PROJECT_ROOT, 'libs'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -70,7 +74,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'xadmin',
+    'crispy_forms',
+    'reversion',
     'djcelery',
+
 ]
 INSTALLED_APPS += INSTALLED_APPS_CUSTOM
 
@@ -151,7 +159,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -162,7 +170,9 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'pysharp', 'static'),
 )
 
+MEDIA_URL='/media/'
 MEDIA_ROOT = TO_ABS_PATH('media')
+
 
 LOGGING_DIR = os.path.join(PROJECT_DIR, 'logs')
 
