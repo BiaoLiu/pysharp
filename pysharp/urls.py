@@ -18,12 +18,13 @@ from django.contrib import admin
 import xadmin
 
 from xadmin.plugins import xversion
+
 xversion.register_models()
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    url(r'^xadmin/',include(xadmin.site.urls)),
+    # url(r'^xadmin/', include(xadmin.site.urls)),
 
     url(r'^wechat/', include('pysharp.apps.wechat.urls')),
 

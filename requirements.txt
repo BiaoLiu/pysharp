@@ -17,6 +17,7 @@ packaging==16.8
 PyMySQL==0.7.9
 pyparsing==2.1.10
 pytz==2016.7
+redis==2.10.5
 requests==2.11.1
 six==1.10.0
 SQLAlchemy==1.1.3

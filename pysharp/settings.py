@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os, sys
 from datetime import datetime
+import djcelery
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -64,6 +65,8 @@ elif RUN_MODE == "PRODUCT":
     # 数据库设置
     DATABASES = DATABASES_PRODUCT
 
+djcelery.setup_loader()
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -78,7 +81,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'reversion',
     'djcelery',
-
 ]
 INSTALLED_APPS += INSTALLED_APPS_CUSTOM
 
@@ -113,6 +115,8 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_USER_MODEL = 'pymodel.AuthUser'
 
 # Templates
 # TEMPLATE_CONTEXT_PROCESSORS = (
@@ -170,9 +174,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'pysharp', 'static'),
 )
 
-MEDIA_URL='/media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = TO_ABS_PATH('media')
-
 
 LOGGING_DIR = os.path.join(PROJECT_DIR, 'logs')
 
