@@ -28,5 +28,7 @@ urlpatterns = [
 
     url(r'^wechat/', include('pysharp.apps.wechat.urls')),
 
+    url(r'^stock/', include('stock.urls')),
+
     url(r'^test_celery/', include('pysharp.apps.task.urls')),
 ]

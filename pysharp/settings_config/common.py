@@ -19,10 +19,13 @@ STATIC_VERSION = 1.0
 # 使用密码的配置：redis://:liubiao123456@127.0.0.1:6379:6379/0
 BROKER_URL = 'redis://127.0.0.1:6379/0'  # 消息代理
 CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/1'  # 任务结果存放在Redis
-CELERY_TASK_SERIALIZER = 'msgpack'  # 任务序列化和反序列化格式
+CELERY_TASK_SERIALIZER = 'json'  # 任务序列化和反序列化格式
 CELERY_RESULT_SERIALIZER = 'json'  # 任务结果格式
 CELERY_TASK_RESULT_EXPIRES = 60 * 60 * 24  # 任务过期时间
-CELERY_ACCEPT_CONTENT = ['json', 'msgpack']  # 指定接受的内容类型
+CELERY_ACCEPT_CONTENT = ['json']  # 指定接受的内容类型
+
+# 定时任务 数据库调度
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
 # 内网ip列表
 INTERNAL_IPS = []
@@ -40,9 +43,9 @@ INSTALLED_APPS_CUSTOM = [
     # add your app here...
     # Note: 请注意在第一次syncdb时不加自己的app
 
-    'pymodel',
     'boai',
-    'stock',
+    'pysharp.apps.pymodel',
+    'pysharp.apps.stock',
     'pysharp.apps.task',
     'pysharp.apps.wechat'
 ]
