@@ -64,7 +64,6 @@ elif RUN_MODE == "PRODUCT":
     # 数据库设置
     DATABASES = DATABASES_PRODUCT
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -79,6 +78,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'reversion',
     'djcelery',
+    'oauth2_provider',
+    'raven.contrib.django.raven_compat',
 ]
 INSTALLED_APPS += INSTALLED_APPS_CUSTOM
 

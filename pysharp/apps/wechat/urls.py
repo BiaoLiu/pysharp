@@ -3,5 +3,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url('^test/$', views.test)
+    url(r'^test/$', views.test),
+
+    url(r'^authcallback/$',views.auth_callback)
 ]

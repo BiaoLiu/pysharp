@@ -31,4 +31,6 @@ urlpatterns = [
     url(r'^stock/', include('stock.urls')),
 
     url(r'^test_celery/', include('pysharp.apps.task.urls')),
+
+    url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 ]

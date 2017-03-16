@@ -1,4 +1,6 @@
 # coding:utf-8
+import os
+import raven
 
 '''
 @summary: 用户自定义全局常量设置
@@ -26,6 +28,19 @@ CELERY_ACCEPT_CONTENT = ['json']  # 指定接受的内容类型
 
 # 定时任务 数据库调度
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+
+
+# ===============================================================================
+# SENTRY 配置
+# ===============================================================================
+
+RAVEN_CONFIG = {
+    'dsn': 'https://c2361baf2a3c49fbb73c2bdc9014e090:988094e339114041995ee0d71b1bca0d@sentry.io/146798',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    # 'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
+}
+
 
 # 内网ip列表
 INTERNAL_IPS = []
